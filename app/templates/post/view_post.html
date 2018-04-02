@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+  <!-- <div class="ui main text container"> -->
+  <div class="ui very padded text container tall stacked segment">
+    <h2 class="ui header">{{ post.title }}</h2>
+    <div class="meta">
+      <span>
+        <i class="user icon"></i> <a href="{{ url_for('user.profile', username=post.author.username) }}">{{ post.author.username }}</a>
+        <i class="calendar icon"></i> {{ moment(post.time_modified).format('L') }}
+      </span>
+    </div>
+    <a href="{{ url_for('post.edit_post', id=post.id) }}">编辑</a>
+    <a href="{{ url_for('post.delete_post', id=post.id) }}">删除</a>
+    <div class="ui hidden divider"></div>
+    <p>{{ post.body }}</p>
+  </div>
+  <div class="ui hidden divider"></div>
+  <div class="ui comments">
+    <h3 class="ui dividing header"><i class="icon comments"></i> 评论</h3>
+    <form class="ui reply form" action="" method="post">
+      {{ form.hidden_tag() }}
+      {{ form.body(class="field") }}
+      {% for error in form.body.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+      {{ form.submit(class="ui primary button") }}
+    </form>
+    <div class="ui hidden divider"></div>
+    {% for comment in comments %}
+      <div class="comment">
+        <a class="avatar">
+          <img src="{{ comment.author.gravatar() }}">
+        </a>
+        <div class="content">
+          <a author="author">{{ comment.author.username }}</a>
+          <div class="metadata">
+            <span class="date">{{ moment(comment.time_created).format('lll') }}</span>
+          </div>
+          <div class="text">
+            <p>{{ comment.body }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

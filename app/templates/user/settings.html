@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}账户设置{% endblock %}
+
+{% block page_content %}
+{% block messages %}
+  {{ super() }}
+{% endblock %}
+<div class="ui segment">
+  <h2 class="ui dividing header">账户设置</h2>
+  <div class="ui items">
+    <div class="ui item">
+      <div class="ui large form">
+        <form action="{{ url_for('user.change_username') }}" method="POST">
+            {{ form_username.hidden_tag() }}
+            <div class="field">
+              {{ form_username.username.label }}
+              {{ form_username.username(size=32) }}
+              {% for error in form_username.username.errors %}
+                {% include '_error.html' %}
+              {% endfor %}
+            </div>
+            {{ form_username.submit(class="ui primary button") }}
+        </form>
+      </div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="ui item">
+      <div class="ui large form">
+        <form action="{{ url_for('user.change_password') }}" method="POST">
+            {{ form_password.hidden_tag() }}
+            <div class="field">
+              {{ form_password.password.label }}
+              {{ form_password.password(size=32) }}
+              {% for error in form_password.password.errors %}
+                {% include '_error.html' %}
+              {% endfor %}
+            </div>
+            <div class="field">
+              {{ form_password.password2.label }}
+              {{ form_password.password2(size=32) }}
+              {% for error in form_password.password2.errors %}
+                {% include '_error.html' %}
+              {% endfor %}
+            </div>
+            {{ form_password.submit(class="ui primary button") }}
+        </form>
+      </div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="ui item">
+      <div class="ui large form">
+        <form action="{{ url_for('user.change_signature') }}" method="POST">
+            {{ form_signature.hidden_tag() }}
+            <div class="field">
+              {{ form_signature.signature.label }}
+                {{ form_signature.signature(rows='5', cols='32') }}
+              {% for error in form_signature.signature.errors %}
+                {% include '_error.html' %}
+              {% endfor %}
+            </div>
+            {{ form_signature.submit(class="ui primary button") }}
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="ui hidden divider"></div>
+</div>
+{% endblock %}

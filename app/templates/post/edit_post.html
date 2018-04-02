@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<h2 class="ui header">编辑文章</h2>
+<div class="ui form">
+  <form action="" method="POST">
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.title.label }}<br>
+      {{ form.title(size=32) }}<br>
+    </p>
+    <p>
+      {{ form.body.label }}<br>
+      {{ form.body(rows="15") }}<br>
+    </p>
+    <p>{{ form.submit(class="ui primary button") }}</p>
+  </form>
+</div>
+{% endblock %}

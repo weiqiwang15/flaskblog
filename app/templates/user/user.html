@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}{{ user.username }} 的个人主页{% endblock %}
+
+{% block page_content %}
+  <h1 class="ui dividing header">{{ user.username }} 的个人主页</h1>
+  <div class="ui raised very padded text container segment">
+    <div class="ui vertical segment">
+      <h2 class="ui header">{{ user.username }} 个人签名</h2>
+      <p>{{ user.signature }}</p>
+    </div>
+    <div class="ui hidden divider"></div>
+    <div class="ui vertical segment">
+      <h2 class="ui header">{{ user.username }} 的文章</h2>
+      {% include '_posts.html' %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+<div class="ui items">
+  {% for post in posts %}
+    <div class="item" align="left">
+      <div class="content">
+        <a class="header" href="{{ url_for('post.view_post', id=post.id) }}">{{ post.title }}</a>
+        <div class="meta">
+          <span>
+            <i class="calendar icon"></i> {{ moment(post.time_modified).format('L') }}
+            <i class="user icon"></i> <a href="{{ url_for('user.profile', username=post.author.username) }}">{{ post.author.username }}</a>
+          </span>
+        </div>
+        <div class="description" align="justify">
+          <p>{{ post.body }}</p>
+        </div>
+        <div class="extra">
+          <a href="{{ url_for('post.view_post', id=post.id) }}"><div class="ui blue right floated button">阅读全文</div></a>
+        </div>
+      </div>
+    </div>
+    <div class="ui divider"></div>
+  {% endfor %}
+</div>

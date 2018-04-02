@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}登录{% endblock %}
+
+{% block page_content %}
+<div class="ui centered grid">
+  <div class="eight wide column">
+    {% block messages %}
+      {{ super() }}
+    {% endblock %}
+    <h2 class="ui dividing header">用户登录</h2>
+    <div class="ui large form">
+      <form action="" method="POST">
+          {{ form.hidden_tag() }}
+          <div class="field">
+            {{ form.username.label }}
+            {{ form.username(size=32) }}
+            {% for error in form.username.errors %}
+              {% include '_error.html' %}
+            {% endfor %}
+          </div>
+          <div class="field">
+            {{ form.password.label }}
+            {{ form.password(size=32) }}
+            {% for error in form.username.errors %}
+              {% include '_error.html' %}
+            {% endfor %}
+          </div>
+          <div class="field">
+            <div class="ui checkbox">
+              {{ form.remember_me() }}{{ form.remember_me.label }}
+            </div>
+          </div>
+          {{ form.submit(class="ui primary button") }}
+      </form>
+    </div>
+    <div class="ui hidden divider"></div>
+    <div class="field">
+      新用户? <a href="{{ url_for('user.register') }}">立即注册</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

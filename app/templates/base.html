@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% block head %}
+    <!-- Standard Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Site Properties -->
+    <title>{% block title %}{% endblock %} - 我的博客</title>
+    <!-- <title>Fixed Menu Example - Semantic</title> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/lib/semantic.min.css') }}">
+
+    <style type="text/css">
+      body {
+        background-color: #FFFFFF;
+      }
+      .ui.menu .item img.logo {
+        margin-right: 1.5em;
+      }
+      .main.container {
+        margin-top: 7em;
+      }
+      .wireframe {
+        margin-top: 2em;
+      }
+      .ui.footer.segment {
+        margin: 5em 0em 0em;
+        padding: 5em 0em;
+      }
+      .Site {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+      }
+
+      .Site-content {
+        flex: 1;
+      }
+    </style>
+  {% endblock %}
+</head>
+
+<body class="Site">
+
+  <main class="Site-content">
+    <div class="ui inverted fixed menu">
+      <div class="ui container">
+        <a href="{{ url_for('home.index') }}" class="header item">
+          <!-- <img class="logo" src="assets/images/logo.png"> -->
+          个人博客
+        </a>
+        <a href="{{ url_for('home.index') }}" class="item"><i class="home icon"></i>主页</a>
+        {% if current_user.is_authenticated %}
+        <div class="right menu">
+          <!-- <div class="ui right aligned category search item">
+            <div class="inverted ui transparent icon input">
+              <input class="prompt" type="text" placeholder="搜索文章...">
+              <i class="inverted search link icon"></i>
+            </div>
+            <div class="results"></div>
+          </div> -->
+          <div class="ui simple dropdown item">
+            <i class="user icon"></i>个人中心 <i class="dropdown icon"></i>
+            <div class="menu">
+              <a class="item" href="{{ url_for('post.new_post') }}"><i class="write icon"></i>发表文章</a>
+              <a class="item" href="{{ url_for('user.profile', username=current_user.username) }}"><i class="id card icon"></i>个人主页</a>
+              <a class="item" href="{{ url_for('user.settings') }}"><i class="settings icon"></i>账户设置</a>
+              <a class="item" href="{{ url_for('user.logout') }}"><i class="sign out icon"></i>退出</a>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="right menu">
+          <a href="{{ url_for('user.login') }}" class="item"><i class="sign in icon"></i>登录</a>
+          <a href="{{ url_for('user.register') }}" class="item"><i class="add user icon"></i>注册</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {% block content %}
+      <div class="ui main text container">
+        {% block page_content %}
+          {% block messages %}
+            {% for message in get_flashed_messages() %}
+                <div class="ui floating message">
+                  <i class="close icon"></i>
+                  <div class="header">
+                    {{ message }}
+                  </div>
+                </div>
+            {% endfor %}
+          {% endblock %}
+        {% endblock %}
+      </div>
+    {% endblock %}
+  </main>
+
+  <footer>
+    <div class="ui inverted vertical footer segment">
+      <div class="ui center aligned container">
+        <div class="six wide centered column">
+          <h4 class="ui inverted header">A Blog App</h4>
+          <p>Powered by Flask and Semantic UI</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  {% block scripts %}
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="../static/js/lib/jquery-3.2.1.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="../static/js/lib/semantic.min.js"></script>
+  {{ moment.include_moment() }}
+  {{ moment.lang("zh-cn") }}
+  <!-- Script for closing messages -->
+  <script>
+  $('.message .close')
+    .on('click', function() {
+      $(this)
+        .closest('.message')
+        .transition('fade')
+    })
+  </script>
+  {% endblock %}
+
+</body>
+
+</html>

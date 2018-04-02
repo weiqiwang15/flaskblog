@@ -1,0 +1,24 @@
+server {
+    listen 80;
+
+#    location /uploads {
+#        alias /root/web21/user_image;
+#    }
+
+    location /static {
+        alias /var/www/flaskblog/app/static;
+    }
+
+#    location /web1 {
+#        proxy_pass http://localhost:3000;
+#    }
+
+#    location /web2 {
+#        proxy_pass http://localhost:4000;
+#    }
+
+    location / {
+        proxy_pass http://localhost:2000;
+    }
+
+}
