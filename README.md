@@ -1,5 +1,4 @@
 # flaskblog - 基于 Flask 的社交博客
-## 地址: http://www.yiheng15.com/
 ## 演示
 ![](/README/demo.gif)
 
